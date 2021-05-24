@@ -3,6 +3,8 @@ const shortId = require("shortid")
 
 var schema = mongoose.Schema
 
+
+//creating a new schema in the mongoDB database
 var urls = new schema({
     longUrl:{
         type: String,
