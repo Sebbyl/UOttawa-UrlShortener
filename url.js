@@ -4,9 +4,18 @@ const shortId = require("shortid")
 var schema = mongoose.Schema
 
 var urls = new schema({
-    urlCode : String,
-    longUrl : String,
-    shortUrl : String
+    longUrl:{
+        type: String,
+        required: true
+    },
+    shortUrl:{
+        type: String,
+        required: true
+    },
+    unique:{
+        type: String,
+        required: true
+    }
     
 })
 

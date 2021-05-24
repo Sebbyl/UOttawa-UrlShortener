@@ -2,6 +2,7 @@ const mongoose = require("mongoose")
 const express = require("express")
 const url = require("./url")
 var bodyParser = require('body-parser');
+const {createShortUrl, openShortUrl} = require("./controller")
 app = express()
 
 var mongoDB = "mongodb://localhost/Database1"
@@ -17,14 +18,10 @@ app.get('/', (req, res) => {
     res.render("index")
 })
 
-app.post('/full', async (req,res) =>{
-   var data = await new url({
-longUrl: req.body.fullUrl
-})
+app.post("/createShortUrl", createShortUrl)
 
-   res.redirect('/')
-   console.log(url.find({}))
-})
+app.get('/unique', openShortUrl)
+
 app.post('/short', (req,res) =>{
      
     res.redirect('/')
