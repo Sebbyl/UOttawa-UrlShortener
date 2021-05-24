@@ -49,17 +49,19 @@ const openShortUrl = async (req, res) =>{
     }
 }
 
-//find the short url in the database
+//find the short url in the database and redirect to the page related to it
 const findShortUrl = async (req, res) => {
     let shortUrl = req.body
     
         let url = await Url.findOne({shortUrl})
         if (url){
-
+            return res.redirect(url.longUrl)
+        }else{
+            res.status(404).json({error:"Not found"})
         }
     }
 
-    //export both functions
+    //export all functions
 module.exports = {
-    createShortUrl, openShortUrl
+    createShortUrl, openShortUrl, findShortUrl
 }
