@@ -12,10 +12,8 @@ const createShortUrl = async (req, res) => {
 
     //generate an id that will serve as the shortened link
     const unique = shortid.generate()
-
-
-        const shortUrl = baseUrl + "/" + unique
-
+    const shortUrl = baseUrl + "/" + unique
+        try{
         //new document in database
         data = new Url({
             longUrl,
@@ -29,6 +27,9 @@ const createShortUrl = async (req, res) => {
             ok: true,
             shortUrl
         })
+    } catch(error){
+        return res.status(500).json({ok : false, error : 'Server error'})
+    }
     
 }
 
@@ -36,6 +37,7 @@ const createShortUrl = async (req, res) => {
 const openShortUrl = async (req, res) =>{
 
     //find the shortened link in the database
+    try{
     const unique = Url.find({})
 
     //find the short link in the database and redirect using the long link
@@ -47,18 +49,25 @@ const openShortUrl = async (req, res) =>{
     else{
         res.status(404).json({error: "Not found"})
     }
+} catch(error){
+    return res.status(500).json({error : 'Server error'})
+}
 }
 
 //find the short url in the database and redirect to the page related to it
 const findShortUrl = async (req, res) => {
     let shortUrl = req.body
     
+    try{
         let url = await Url.findOne({shortUrl})
         if (url){
             return res.redirect(url.longUrl)
         }else{
             res.status(404).json({error:"Not found"})
         }
+    } catch(error){
+        return res.status(500).json({error : 'Server error'})
+    }
     }
 
     //export all functions

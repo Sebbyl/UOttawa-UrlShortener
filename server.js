@@ -3,7 +3,7 @@ const mongoose = require("mongoose")
 const express = require("express")
 const url = require("./url")
 var bodyParser = require('body-parser');
-const {createShortUrl, openShortUrl} = require("./controller");
+const {createShortUrl, openShortUrl, findShortUrl} = require("./controller");
 app = express()
 
 //connect to the mongoDB database locally
